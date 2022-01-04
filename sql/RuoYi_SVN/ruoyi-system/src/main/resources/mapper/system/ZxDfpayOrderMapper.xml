@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxDfpayOrderMapper">
+    
+    <resultMap type="ZxDfpayOrder" id="ZxDfpayOrderResult">
+        <result property="id"    column="id"    />
+        <result property="dfpayId"    column="dfpay_id"    />
+        <result property="dfpayName"    column="dfpay_name"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="money"    column="money"    />
+        <result property="relalName"    column="relal_name"    />
+        <result property="bankCard"    column="bank_card"    />
+        <result property="bank"    column="bank"    />
+        <result property="openBank"    column="open_bank"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="payResult"    column="pay_result"    />
+        <result property="isNotify"    column="is_notify"    />
+        <result property="panName"    column="pan_name"    />
+        <result property="panStatus"    column="pan_status"    />
+        <result property="isSend"    column="is_send"    />
+        <result property="bankCode"    column="bank_code"    />
+    </resultMap>
+
+    <sql id="selectZxDfpayOrderVo">
+        select id, dfpay_id, dfpay_name, order_no, money, relal_name, bank_card, bank, open_bank, pay_time, pay_status, create_by, create_time, update_by, update_time, remark,pay_result,is_notify,pan_name,pan_status,is_send,bank_code from zx_dfpay_order
+    </sql>
+
+    <select id="selectZxDfpayOrderList" parameterType="ZxDfpayOrder" resultMap="ZxDfpayOrderResult">
+        <include refid="selectZxDfpayOrderVo"/>
+        <where>  
+            <if test="dfpayName != null  and dfpayName != ''"> and dfpay_name like concat('%', #{dfpayName}, '%')</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="relalName != null  and relalName != ''"> and relal_name like concat('%', #{relalName}, '%')</if>
+            <if test="bankCard != null  and bankCard != ''"> and bank_card = #{bankCard}</if>
+            <if test="params.beginPayTime != null and params.beginPayTime != '' and params.endPayTime != null and params.endPayTime != ''"> and pay_time between #{params.beginPayTime} and #{params.endPayTime}</if>
+            <if test="payStatus != null "> and pay_status = #{payStatus}</if>
+            <if test="isNotify != null "> and is_notify = #{isNotify}</if>
+            <if test="panName != null and  panName !=''  "> and pan_name = #{panName}</if>
+            <if test="isSend != null "> and is_send = #{isSend}</if>
+            <if test="bankCode != null  and bankCode != ''"> and bank_code = #{bankCode}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectZxDfpayOrderById" parameterType="Long" resultMap="ZxDfpayOrderResult">
+        <include refid="selectZxDfpayOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertZxDfpayOrder" parameterType="ZxDfpayOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into zx_dfpay_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dfpayId != null">dfpay_id,</if>
+            <if test="dfpayName != null">dfpay_name,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="money != null">money,</if>
+            <if test="relalName != null">relal_name,</if>
+            <if test="bankCard != null">bank_card,</if>
+            <if test="bank != null">bank,</if>
+            <if test="openBank != null">open_bank,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="payResult != null">pay_result,</if>
+            <if test="isNotify != null">is_notify,</if>
+            <if test="panName != null">pan_name,</if>
+            <if test="panStatus != null">pan_status,</if>
+            <if test="isSend != null">is_send,</if>
+            <if test="bankCode != null">bank_code,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dfpayId != null">#{dfpayId},</if>
+            <if test="dfpayName != null">#{dfpayName},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="money != null">#{money},</if>
+            <if test="relalName != null">#{relalName},</if>
+            <if test="bankCard != null">#{bankCard},</if>
+            <if test="bank != null">#{bank},</if>
+            <if test="openBank != null">#{openBank},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="payResult != null">#{payResult},</if>
+            <if test="isNotify != null">#{isNotify},</if>
+            <if test="panName != null">#{panName},</if>
+            <if test="panStatus != null">#{panStatus},</if>
+            <if test="isSend != null">#{isSend},</if>
+            <if test="bankCode != null">#{bankCode},</if>
+        </trim>
+    </insert>
+
+    <update id="updateZxDfpayOrder" parameterType="ZxDfpayOrder">
+        update zx_dfpay_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dfpayId != null">dfpay_id = #{dfpayId},</if>
+            <if test="dfpayName != null">dfpay_name = #{dfpayName},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="relalName != null">relal_name = #{relalName},</if>
+            <if test="bankCard != null">bank_card = #{bankCard},</if>
+            <if test="bank != null">bank = #{bank},</if>
+            <if test="openBank != null">open_bank = #{openBank},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="payResult != null">pay_result = #{payResult},</if>
+            <if test="isNotify != null">is_notify = #{isNotify},</if>
+            <if test="panName != null">pan_name = #{panName},</if>
+            <if test="panStatus != null">pan_status =#{panStatus} ,</if>
+            <if test="isSend != null">is_send =#{isSend} ,</if>
+            <if test="bankCode != null">bank_code =#{bankCode} ,</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteZxDfpayOrderById" parameterType="Long">
+        delete from zx_dfpay_order where id = #{id}
+    </delete>
+
+    <delete id="deleteZxDfpayOrderByIds" parameterType="String">
+        delete from zx_dfpay_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.us.mapper.FaBankinfoMapper">
+    
+    <resultMap type="FaBankinfo" id="FaBankinfoResult">
+        <result property="id"    column="id"    />
+        <result property="bankcode"    column="bankcode"    />
+        <result property="bankname"    column="bankname"    />
+        <result property="bankcode1"    column="bankcode1"    />
+        <result property="bankcode2"    column="bankcode2"    />
+        <result property="bankcode3"    column="bankcode3"    />
+        <result property="bankcode4"    column="bankcode4"    />
+        <result property="bankcode5"    column="bankcode5"    />
+        <result property="bankcode6"    column="bankcode6"    />
+        <result property="bankcode7"    column="bankcode7"    />
+    </resultMap>
+
+    <sql id="selectFaBankinfoVo">
+        select id, bankcode, bankname, bankcode1, bankcode2, bankcode3, bankcode4, bankcode5, bankcode6, bankcode7 from fa_bankinfo
+    </sql>
+
+    <select id="selectFaBankinfoList" parameterType="FaBankinfo" resultMap="FaBankinfoResult">
+        <include refid="selectFaBankinfoVo"/>
+        <where>  
+            <if test="bankcode != null  and bankcode != ''"> and bankcode = #{bankcode}</if>
+            <if test="bankname != null  and bankname != ''"> and bankname like concat('%', #{bankname}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectFaBankinfoById" parameterType="Long" resultMap="FaBankinfoResult">
+        <include refid="selectFaBankinfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFaBankinfo" parameterType="FaBankinfo" useGeneratedKeys="true" keyProperty="id">
+        insert into fa_bankinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bankcode != null">bankcode,</if>
+            <if test="bankname != null">bankname,</if>
+            <if test="bankcode1 != null">bankcode1,</if>
+            <if test="bankcode2 != null">bankcode2,</if>
+            <if test="bankcode3 != null">bankcode3,</if>
+            <if test="bankcode4 != null">bankcode4,</if>
+            <if test="bankcode5 != null">bankcode5,</if>
+            <if test="bankcode6 != null">bankcode6,</if>
+            <if test="bankcode7 != null">bankcode7,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bankcode != null">#{bankcode},</if>
+            <if test="bankname != null">#{bankname},</if>
+            <if test="bankcode1 != null">#{bankcode1},</if>
+            <if test="bankcode2 != null">#{bankcode2},</if>
+            <if test="bankcode3 != null">#{bankcode3},</if>
+            <if test="bankcode4 != null">#{bankcode4},</if>
+            <if test="bankcode5 != null">#{bankcode5},</if>
+            <if test="bankcode6 != null">#{bankcode6},</if>
+            <if test="bankcode7 != null">#{bankcode7},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFaBankinfo" parameterType="FaBankinfo">
+        update fa_bankinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bankcode != null">bankcode = #{bankcode},</if>
+            <if test="bankname != null">bankname = #{bankname},</if>
+            <if test="bankcode1 != null">bankcode1 = #{bankcode1},</if>
+            <if test="bankcode2 != null">bankcode2 = #{bankcode2},</if>
+            <if test="bankcode3 != null">bankcode3 = #{bankcode3},</if>
+            <if test="bankcode4 != null">bankcode4 = #{bankcode4},</if>
+            <if test="bankcode5 != null">bankcode5 = #{bankcode5},</if>
+            <if test="bankcode6 != null">bankcode6 = #{bankcode6},</if>
+            <if test="bankcode7 != null">bankcode7 = #{bankcode7},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFaBankinfoById" parameterType="Long">
+        delete from fa_bankinfo where id = #{id}
+    </delete>
+
+    <delete id="deleteFaBankinfoByIds" parameterType="String">
+        delete from fa_bankinfo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

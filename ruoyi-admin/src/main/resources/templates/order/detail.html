@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改代付订单')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-order-edit" th:object="${zxDfpayOrder}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">代付通道：</label>
+                <div class="col-sm-8">
+                    <select name="dfpayId" class="form-control m-b" th:with="type=${@dict.getType('dfpay_name')}" required>
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{dfpayId}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">订单号：</label>
+                <div class="col-sm-8">
+                    <input name="orderNo" th:field="*{orderNo}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付金额：</label>
+                <div class="col-sm-8">
+                    <input name="money" th:field="*{money}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">姓名：</label>
+                <div class="col-sm-8">
+                    <input name="relalName" th:field="*{relalName}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">银行卡号：</label>
+                <div class="col-sm-8">
+                    <input name="bankCard" th:field="*{bankCard}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">银行名称：</label>
+                <div class="col-sm-8">
+                    <input name="bank" th:field="*{bank}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">银行编码：</label>
+                <div class="col-sm-8">
+                    <input name="bankCode" th:field="*{bankCode}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">开户行：</label>
+                <div class="col-sm-8">
+                    <input name="openBank" th:field="*{openBank}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">支付状态：</label>
+                <div class="col-sm-8">
+                    <select name="payStatus" class="form-control m-b" th:with="type=${@dict.getType('dfpay_order_status')}" readonly="true">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{payStatus}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注：</label>
+                <div class="col-sm-8">
+                    <textarea name="remark" class="form-control">[[*{remark}]]</textarea>
+                </div>
+            </div>
+            <hr style="border-color: red">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" style="color: red">四方代付结果：</label>
+                <div class="col-sm-8">
+                    <input name="payResult" th:field="*{payResult}" class="form-control" type="text" readonly>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "us/order";
+        $("#form-order-edit").validate({
+            focusCleanup: false
+
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-order-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

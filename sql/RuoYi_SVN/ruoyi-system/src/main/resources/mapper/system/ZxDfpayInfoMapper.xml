@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxDfpayInfoMapper">
+    
+    <resultMap type="ZxDfpayInfo" id="ZxDfpayInfoResult">
+        <result property="id"    column="id"    />
+        <result property="mchId"    column="mch_id"    />
+        <result property="mchName"    column="mch_name"    />
+        <result property="mchId2"    column="mch_id2"    />
+        <result property="apiUrl"    column="api_url"    />
+        <result property="mchKey"    column="mch_key"    />
+        <result property="secret"    column="secret"    />
+        <result property="notifyUrl"    column="notify_url"    />
+        <result property="isUse"    column="is_use"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectZxDfpayInfoVo">
+        select id, mch_id, mch_name, mch_id2, api_url, mch_key, secret, notify_url, is_use, create_by, create_time, update_by, update_time, remark from zx_dfpay_info
+    </sql>
+
+    <select id="selectZxDfpayInfoList" parameterType="ZxDfpayInfo" resultMap="ZxDfpayInfoResult">
+        <include refid="selectZxDfpayInfoVo"/>
+        <where>  
+            <if test="mchId != null  and mchId != ''"> and mch_id = #{mchId}</if>
+            <if test="mchName != null  and mchName != ''"> and mch_name like concat('%', #{mchName}, '%')</if>
+            <if test="mchId2 != null  and mchId2 != ''"> and mch_id2 = #{mchId2}</if>
+            <if test="mchKey != null  and mchKey != ''"> and mch_key = #{mchKey}</if>
+            <if test="isUse != null  and isUse != ''"> and is_use = #{isUse}</if>
+        </where>
+    </select>
+    
+    <select id="selectZxDfpayInfoById" parameterType="Long" resultMap="ZxDfpayInfoResult">
+        <include refid="selectZxDfpayInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertZxDfpayInfo" parameterType="ZxDfpayInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into zx_dfpay_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mchId != null">mch_id,</if>
+            <if test="mchName != null">mch_name,</if>
+            <if test="mchId2 != null">mch_id2,</if>
+            <if test="apiUrl != null">api_url,</if>
+            <if test="mchKey != null">mch_key,</if>
+            <if test="secret != null">secret,</if>
+            <if test="notifyUrl != null">notify_url,</if>
+            <if test="isUse != null">is_use,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mchId != null">#{mchId},</if>
+            <if test="mchName != null">#{mchName},</if>
+            <if test="mchId2 != null">#{mchId2},</if>
+            <if test="apiUrl != null">#{apiUrl},</if>
+            <if test="mchKey != null">#{mchKey},</if>
+            <if test="secret != null">#{secret},</if>
+            <if test="notifyUrl != null">#{notifyUrl},</if>
+            <if test="isUse != null">#{isUse},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateZxDfpayInfo" parameterType="ZxDfpayInfo">
+        update zx_dfpay_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mchId != null">mch_id = #{mchId},</if>
+            <if test="mchName != null">mch_name = #{mchName},</if>
+            <if test="mchId2 != null">mch_id2 = #{mchId2},</if>
+            <if test="apiUrl != null">api_url = #{apiUrl},</if>
+            <if test="mchKey != null">mch_key = #{mchKey},</if>
+            <if test="secret != null">secret = #{secret},</if>
+            <if test="notifyUrl != null">notify_url = #{notifyUrl},</if>
+            <if test="isUse != null">is_use = #{isUse},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteZxDfpayInfoById" parameterType="Long">
+        delete from zx_dfpay_info where id = #{id}
+    </delete>
+
+    <delete id="deleteZxDfpayInfoByIds" parameterType="String">
+        delete from zx_dfpay_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

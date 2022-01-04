@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增代付通道信息')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-info-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">商户号：</label>
+                <div class="col-sm-8">
+                    <input name="mchId" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付平台名称：</label>
+                <div class="col-sm-8">
+                    <input name="mchName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">商户编号2：</label>
+                <div class="col-sm-8">
+                    <input name="mchId2" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">接口地址：</label>
+                <div class="col-sm-8">
+                    <input name="apiUrl" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">商户KEY：</label>
+                <div class="col-sm-8">
+                    <input name="mchKey" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">商户秘钥：</label>
+                <div class="col-sm-8">
+                    <input name="secret" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">异步回调地址：</label>
+                <div class="col-sm-8">
+                    <input name="notifyUrl" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">是否启用：</label>
+                <div class="col-sm-8">
+                    <select name="isUse" class="form-control m-b" th:with="type=${@dict.getType('dfpay_status')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注：</label>
+                <div class="col-sm-8">
+                    <textarea name="remark" class="form-control"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "us/info"
+        $("#form-info-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-info-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

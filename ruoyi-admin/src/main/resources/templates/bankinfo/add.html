@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增银行管理')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-bankinfo-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">银行编码：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">银行名称：</label>
+                <div class="col-sm-8">
+                    <input name="bankname" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">GP代付编码：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode1" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码2：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode2" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码3：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode3" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码4：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode4" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码5：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode5" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码6：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode6" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">代付编码7：</label>
+                <div class="col-sm-8">
+                    <input name="bankcode7" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "us/bankinfo"
+        $("#form-bankinfo-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-bankinfo-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

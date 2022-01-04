@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.us.mapper.BankCardMapper">
+    
+    <resultMap type="BankCard" id="BankCardResult">
+        <result property="id"    column="id"    />
+        <result property="bankName"    column="bank_name"    />
+        <result property="bankCardNo"    column="bank_card_no"    />
+        <result property="bankCardImg"    column="bank_card_img"    />
+        <result property="handUserName"    column="hand_user_name"    />
+        <result property="openBankAddress"    column="open_bank_address"    />
+        <result property="todayCollectMoney"    column="today_collect_money"    />
+        <result property="taotalColletcQuato"    column="taotal_colletc_quato"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBankCardVo">
+        select id, bank_name, bank_card_no, bank_card_img, hand_user_name, open_bank_address, today_collect_money, taotal_colletc_quato, create_by, create_time, update_by, update_time, remark from ry_bank_card
+    </sql>
+
+    <select id="selectBankCardList" parameterType="BankCard" resultMap="BankCardResult">
+        <include refid="selectBankCardVo"/>
+        <where>  
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankCardNo != null  and bankCardNo != ''"> and bank_card_no like concat('%', #{bankCardNo}, '%')</if>
+            <if test="handUserName != null  and handUserName != ''"> and hand_user_name like concat('%', #{handUserName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBankCardById" parameterType="Long" resultMap="BankCardResult">
+        <include refid="selectBankCardVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBankCard" parameterType="BankCard">
+        insert into ry_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankCardNo != null">bank_card_no,</if>
+            <if test="bankCardImg != null">bank_card_img,</if>
+            <if test="handUserName != null">hand_user_name,</if>
+            <if test="openBankAddress != null">open_bank_address,</if>
+            <if test="todayCollectMoney != null">today_collect_money,</if>
+            <if test="taotalColletcQuato != null">taotal_colletc_quato,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="bankCardNo != null">#{bankCardNo},</if>
+            <if test="bankCardImg != null">#{bankCardImg},</if>
+            <if test="handUserName != null">#{handUserName},</if>
+            <if test="openBankAddress != null">#{openBankAddress},</if>
+            <if test="todayCollectMoney != null">#{todayCollectMoney},</if>
+            <if test="taotalColletcQuato != null">#{taotalColletcQuato},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBankCard" parameterType="BankCard">
+        update ry_bank_card
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="bankCardNo != null">bank_card_no = #{bankCardNo},</if>
+            <if test="bankCardImg != null">bank_card_img = #{bankCardImg},</if>
+            <if test="handUserName != null">hand_user_name = #{handUserName},</if>
+            <if test="openBankAddress != null">open_bank_address = #{openBankAddress},</if>
+            <if test="todayCollectMoney != null">today_collect_money = #{todayCollectMoney},</if>
+            <if test="taotalColletcQuato != null">taotal_colletc_quato = #{taotalColletcQuato},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankCardById" parameterType="Long">
+        delete from ry_bank_card where id = #{id}
+    </delete>
+
+    <delete id="deleteBankCardByIds" parameterType="String">
+        delete from ry_bank_card where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

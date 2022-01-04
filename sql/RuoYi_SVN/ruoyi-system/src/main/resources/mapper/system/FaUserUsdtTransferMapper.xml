@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FaUserUsdtTransferMapper">
+    
+    <resultMap type="FaUserUsdtTransfer" id="FaUserUsdtTransferResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="num"    column="num"    />
+        <result property="fee"    column="fee"    />
+        <result property="address"    column="address"    />
+        <result property="reason"    column="reason"    />
+        <result property="status"    column="status"    />
+        <result property="createtime"    column="createtime"    />
+        <result property="updatetime"    column="updatetime"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="dfpayid"    column="dfpayid"    />
+        <result property="outOrderId"    column="out_order_id"    />
+        <result property="name"    column="name"    />
+        <result property="account"    column="account"    />
+        <result property="bankname"    column="bankname"    />
+        <result property="bankarea"    column="bankarea"    />
+        <result property="tradeNo"    column="trade_no"    />
+        <result property="bankCode"    column="bank_code"    />
+        <result property="bankSf"    column="bank_sf"    />
+        <result property="bankS"    column="bank_s"    />
+        <result property="dftime"    column="dftime"    />
+        <result property="istip"    column="istip"    />
+        <result property="tryint"    column="tryint"    />
+    </resultMap>
+
+    <sql id="selectFaUserUsdtTransferVo">
+        select id, user_id, num, fee, address, reason, status, FROM_UNIXTIME(createtime) as createtime, FROM_UNIXTIME(updatetime) as updatetime, order_id, dfpayid, out_order_id, name, account, bankname, bankarea, trade_no, bank_code, bank_sf, bank_s, dftime, istip, tryint from fa_user_usdt_transfer
+    </sql>
+
+    <select id="selectFaUserUsdtTransferList" parameterType="FaUserUsdtTransfer" resultMap="FaUserUsdtTransferResult">
+        <include refid="selectFaUserUsdtTransferVo"/>
+         WHERE 1=1 AND
+         FROM_UNIXTIME(createtime) > DATE_SUB(NOW(),INTERVAL 1 HOUR) ORDER BY createtime DESC LIMIT 100
+    </select>
+    
+    <select id="selectFaUserUsdtTransferById" parameterType="Long" resultMap="FaUserUsdtTransferResult">
+        <include refid="selectFaUserUsdtTransferVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFaUserUsdtTransfer" parameterType="FaUserUsdtTransfer" useGeneratedKeys="true" keyProperty="id">
+        insert into fa_user_usdt_transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="num != null">num,</if>
+            <if test="fee != null">fee,</if>
+            <if test="address != null">address,</if>
+            <if test="reason != null">reason,</if>
+            <if test="status != null">status,</if>
+            <if test="createtime != null">createtime,</if>
+            <if test="updatetime != null">updatetime,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="dfpayid != null">dfpayid,</if>
+            <if test="outOrderId != null">out_order_id,</if>
+            <if test="name != null"> `name`,</if>
+            <if test="account != null">account,</if>
+            <if test="bankname != null">bankname,</if>
+            <if test="bankarea != null">bankarea,</if>
+            <if test="tradeNo != null">trade_no,</if>
+            <if test="bankCode != null and bankCode != ''">bank_code,</if>
+            <if test="bankSf != null">bank_sf,</if>
+            <if test="bankS != null">bank_s,</if>
+            <if test="dftime != null">dftime,</if>
+            <if test="istip != null">istip,</if>
+            <if test="tryint != null">tryint,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="num != null">#{num},</if>
+            <if test="fee != null">#{fee},</if>
+            <if test="address != null">#{address},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="dfpayid != null">#{dfpayid},</if>
+            <if test="outOrderId != null">#{outOrderId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="account != null">#{account},</if>
+            <if test="bankname != null">#{bankname},</if>
+            <if test="bankarea != null">#{bankarea},</if>
+            <if test="tradeNo != null">#{tradeNo},</if>
+            <if test="bankCode != null and bankCode != ''">#{bankCode},</if>
+            <if test="bankSf != null">#{bankSf},</if>
+            <if test="bankS != null">#{bankS},</if>
+            <if test="dftime != null">#{dftime},</if>
+            <if test="istip != null">#{istip},</if>
+            <if test="tryint != null">#{tryint},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFaUserUsdtTransfer" parameterType="FaUserUsdtTransfer">
+        update fa_user_usdt_transfer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="fee != null">fee = #{fee},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createtime != null">createtime = #{createtime},</if>
+            <if test="updatetime != null">updatetime = #{updatetime},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="dfpayid != null">dfpayid = #{dfpayid},</if>
+            <if test="outOrderId != null">out_order_id = #{outOrderId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="account != null">account = #{account},</if>
+            <if test="bankname != null">bankname = #{bankname},</if>
+            <if test="bankarea != null">bankarea = #{bankarea},</if>
+            <if test="tradeNo != null">trade_no = #{tradeNo},</if>
+            <if test="bankCode != null and bankCode != ''">bank_code = #{bankCode},</if>
+            <if test="bankSf != null">bank_sf = #{bankSf},</if>
+            <if test="bankS != null">bank_s = #{bankS},</if>
+            <if test="dftime != null">dftime = #{dftime},</if>
+            <if test="istip != null">istip = #{istip},</if>
+            <if test="tryint != null">tryint = #{tryint},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFaUserUsdtTransferById" parameterType="Long">
+        delete from fa_user_usdt_transfer where id = #{id}
+    </delete>
+
+    <delete id="deleteFaUserUsdtTransferByIds" parameterType="String">
+        delete from fa_user_usdt_transfer where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
